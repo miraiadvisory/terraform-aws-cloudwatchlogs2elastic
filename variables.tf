@@ -7,13 +7,13 @@ variable "es_endpoint" {
 }
 
 variable "cwl_endpoint" {
-  type = string
+  type    = string
   default = "logs.eu-west-1.amazonaws.com"
 }
 
 variable "cloudwatch_loggroup_name" {
   type = string
-  }
+}
 
 variable "cloudwatch_loggroup_retention" {
   type    = string
