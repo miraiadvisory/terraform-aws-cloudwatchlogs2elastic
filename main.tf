@@ -3,6 +3,10 @@
 #  retention_in_days = var.cloudwatch_loggroup_retention
 #}
 
+data "aws_cloudwatch_log_group" "loggroup" {
+  name = var.cloudwatch_loggroup_name 
+}
+
 resource "aws_iam_role" "lambda_elasticsearch_execution_role" {
   name = "${var.name}_lambda_execution_role"
   assume_role_policy = <<EOF
@@ -105,7 +109,7 @@ resource "aws_lambda_permission" "cloudwatch_allow" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.cwl_stream_lambda.arn
   principal     = var.cwl_endpoint
-  source_arn    = "${aws_cloudwatch_log_group.this_loggroup.arn}/*"
+  source_arn    = "${data.aws_cloudwatch_log_group.loggroup.arn}/*"
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "cloudwatch_logs_to_es" {
