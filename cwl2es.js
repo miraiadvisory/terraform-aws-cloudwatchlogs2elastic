@@ -6,7 +6,6 @@ var crypto = require('crypto');
 
 const ENV = process.env;
 var endpoint = ENV.es_endpoint;
-var environment = ENV.tf_environment;
 
 // Set this to true if you want to debug why data isn't making it to
 // your Elasticsearch cluster. This will enable logging of failed items
@@ -70,12 +69,11 @@ function transform(payload) {
 
         var source = buildSource(logEvent.message, logEvent.extractedFields);
         source['@id'] = logEvent.id;
-        source['environment'] = environment;
         source['@timestamp'] = new Date(1 * logEvent.timestamp).toISOString();
         source['@message'] = logEvent.message;
         source['@owner'] = payload.owner;
         source['@log_group'] = payload.logGroup;
-        source['@log_stream'] = payload.logStream;
+        source['@crawler_name'] = payload.logStream;
 
         var action = { "index": {} };
         action.index._index = indexName;
