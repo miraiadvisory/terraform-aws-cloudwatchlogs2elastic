@@ -1,25 +1,25 @@
-resource "aws_cloudwatch_log_group" "this_loggroup" {
-  name              = var.cloudwatch_loggroup_name
-  retention_in_days = var.cloudwatch_loggroup_retention
-}
-
-resource "aws_iam_role" "lambda_elasticsearch_execution_role" {
-  name = "${var.name}_lambda_execution_role"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow"
-    }
-  ]
-}
-EOF
-}
+#resource "aws_cloudwatch_log_group" "this_loggroup" {
+#  name              = var.cloudwatch_loggroup_name
+#  retention_in_days = var.cloudwatch_loggroup_retention
+#}
+#
+#resource "aws_iam_role" "lambda_elasticsearch_execution_role" {
+#  name = "${var.name}_lambda_execution_role"
+#  assume_role_policy = <<EOF
+#{
+#  "Version": "2012-10-17",
+#  "Statement": [
+#    {
+#      "Action": "sts:AssumeRole",
+#      "Principal": {
+#        "Service": "lambda.amazonaws.com"
+#      },
+#      "Effect": "Allow"
+#    }
+#  ]
+#}
+#EOF
+#}
 
 resource "aws_security_group" "this_security_group" {
   name        = "${var.name}_lambda_sg"
@@ -111,7 +111,7 @@ resource "aws_lambda_permission" "cloudwatch_allow" {
 resource "aws_cloudwatch_log_subscription_filter" "cloudwatch_logs_to_es" {
   depends_on = [ aws_lambda_permission.cloudwatch_allow ]
   name            = "${var.name}_cloudwatch_logs_to_elasticsearch"
-  log_group_name  = aws_cloudwatch_log_group.this_loggroup.name
+  log_group_name  = var.cloudwatch_loggroup_name
   filter_pattern  = ""
   destination_arn = aws_lambda_function.cwl_stream_lambda.arn
 }
