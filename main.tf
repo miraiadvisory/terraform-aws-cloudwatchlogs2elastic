@@ -34,8 +34,6 @@ resource "aws_security_group" "this_security_group" {
   }
 
   tags = {
-    Project = var.project
-    Environment = var.environment  
   }
 }
 
@@ -78,17 +76,17 @@ EOF
 
 data "archive_file" "cwl2eslambda" {
   type = "zip"
-  source_file = "cwl2es.js"
-  output_path = "cwl2eslambda.zip"
+  source_file = "${path.module}/cwl2es.js"
+  output_path = "${path.module}/cwl2eslambda.zip"
 }
 
 resource "aws_lambda_function" "cwl_stream_lambda" {
-  filename         = "cwl2eslambda.zip"
+  filename         = "${path.module}/cwl2eslambda.zip"
   function_name    = var.name
   role             = aws_iam_role.lambda_elasticsearch_execution_role.arn
   handler          = "cwl2es.handler"
   source_code_hash = "${filebase64sha256(data.archive_file.cwl2eslambda.output_path)}"
-  runtime          = "nodejs16.x"
+  runtime          = "nodejs14.x"
 
   vpc_config {
     subnet_ids = var.subnets
@@ -98,7 +96,6 @@ resource "aws_lambda_function" "cwl_stream_lambda" {
   environment {
     variables = {
       es_endpoint    = var.es_endpoint
-      tf_environment = var.tf_environment
     }
   }
 }

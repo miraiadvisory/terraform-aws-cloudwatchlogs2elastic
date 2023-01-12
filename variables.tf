@@ -2,14 +2,6 @@ variable "vpc_id" {
   type = string
 }
 
-variable "project" {
-  type = string
-}
-
-variable "environment" {
-  type = string
-}
-
 variable "es_endpoint" {
   type = string
 }
@@ -17,10 +9,6 @@ variable "es_endpoint" {
 variable "cwl_endpoint" {
   type = string
   default = "logs.eu-west-1.amazonaws.com"
-}
-
-variable "tf_environment" {
-  type = string
 }
 
 variable "cloudwatch_loggroup_name" {
