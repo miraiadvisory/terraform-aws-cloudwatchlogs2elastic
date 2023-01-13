@@ -115,7 +115,7 @@ resource "aws_lambda_permission" "cloudwatch_allow" {
 resource "aws_cloudwatch_log_subscription_filter" "cloudwatch_logs_to_es" {
   depends_on      = [aws_lambda_permission.cloudwatch_allow]
   name            = "${var.name}_cloudwatch_logs_to_elasticsearch"
-  log_group_name  = var.cloudwatch_loggroup_name
+  log_group_name  = data.aws_cloudwatch_log_group.loggroup.name
   filter_pattern  = ""
   destination_arn = aws_lambda_function.cwl_stream_lambda.arn
 }
