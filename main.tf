@@ -99,7 +99,9 @@ resource "aws_lambda_function" "cwl_stream_lambda" {
 
   environment {
     variables = {
-      es_endpoint = var.es_endpoint
+      es_endpoint        = var.es_endpoint
+      es_index_prefix    = var.es_index_prefix
+      cwl_logstream_name = var.cwl_logstream_name
     }
   }
 }

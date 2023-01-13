@@ -11,6 +11,16 @@ variable "cwl_endpoint" {
   default = "logs.eu-west-1.amazonaws.com"
 }
 
+variable "es_index_prefix" {
+  type    = string
+  default = ""
+}
+
+variable "cwl_logstream_name" {
+  type    = string
+  default = ""
+}
+
 variable "cloudwatch_loggroup_name" {
   type = string
 }

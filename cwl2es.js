@@ -6,6 +6,8 @@ var crypto = require('crypto');
 
 const ENV = process.env;
 var endpoint = ENV.es_endpoint;
+var index_prefix = ENV.es_index_prefix
+var logstream_human_readable = ENV.cwl_logstream_name
 
 // Set this to true if you want to debug why data isn't making it to
 // your Elasticsearch cluster. This will enable logging of failed items
