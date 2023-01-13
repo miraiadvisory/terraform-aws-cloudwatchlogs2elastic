@@ -109,7 +109,7 @@ resource "aws_lambda_permission" "cloudwatch_allow" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.cwl_stream_lambda.arn
   principal     = var.cwl_endpoint
-  source_arn    = "${data.aws_cloudwatch_log_group.loggroup.arn}/*"
+  source_arn    = "${data.aws_cloudwatch_log_group.loggroup.arn}:*"
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "cloudwatch_logs_to_es" {
