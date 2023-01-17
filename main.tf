@@ -78,11 +78,11 @@ resource "aws_iam_role_policy" "lambda_elasticsearch_execution_policy" {
 EOF
 }
 
-data "archive_file" "cwl2eslambda" {
-  type        = "zip"
-  source_file = "${path.module}/cwl2es.js"
-  output_path = "${path.module}/cwl2eslambda.zip"
-}
+#data "archive_file" "cwl2eslambda" {
+#  type        = "zip"
+#  source_file = "${path.module}/cwl2es.js"
+#  output_path = "${path.module}/cwl2eslambda.zip"
+#}
 
 resource "aws_lambda_function" "cwl_stream_lambda" {
   filename         = "${path.module}/cwl2eslambda.zip"
