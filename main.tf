@@ -94,7 +94,8 @@ resource "aws_lambda_function" "cwl_stream_lambda" {
 
   vpc_config {
     subnet_ids         = var.subnets
-    security_group_ids = [aws_security_group.this_security_group.id]
+    security_group_ids = var.security_group_ids
+    ###security_group_ids = [aws_security_group.this_security_group.id]
   }
 
   environment {
