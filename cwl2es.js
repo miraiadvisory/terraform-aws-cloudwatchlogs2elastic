@@ -75,7 +75,7 @@ function transform(payload) {
         source['@message'] = logEvent.message;
         source['@owner'] = payload.owner;
         source['@log_group'] = payload.logGroup;
-        source['@crawler_name'] = payload.logStream;
+	source[`@${logstream_human_readable}`] = payload.logStream;
 
         var action = { "index": {} };
         action.index._index = indexName;
