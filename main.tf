@@ -90,7 +90,7 @@ resource "aws_lambda_function" "cwl_stream_lambda" {
   role             = aws_iam_role.lambda_elasticsearch_execution_role.arn
   handler          = "cwl2es.handler"
   source_code_hash = filebase64sha256("${path.module}/cwl2eslambda.zip")
-  runtime          = "nodejs14.x"
+  runtime          = "nodejs18.x"
 
   vpc_config {
     subnet_ids         = var.subnets
